@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "harness-context": {
+      "args": [
+        "mcp",
+        "serve",
+        "--profile",
+        "native"
+      ],
+      "command": ".harness/bin/harness.exe"
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(./.harness/bin/harness *)"
+    ],
+    "deny": [
+      "Read(./**/*.pem)",
+      "Read(./**/.env)",
+      "Read(./**/id_rsa)",
+      "Read(./.env)",
+      "Read(./.harness/scratchpad/telemetry-spool*)"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+[project]
+name = "experience-api"
+version = "0.1.0"
+description = "VoC Insights Workspace Experience API"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.35",
+    "fastapi>=0.115",
+    "httpx>=0.28",
+    "opentelemetry-exporter-otlp-proto-http>=1.29",
+    "opentelemetry-instrumentation-fastapi>=0.50b0",
+    "opentelemetry-instrumentation-sqlalchemy>=0.50b0",
+    "opentelemetry-sdk>=1.29",
+    "pydantic[email]>=2.10",
+    "pydantic-settings>=2.6",
+    "pyjwt[crypto]>=2.10",
+    "uvicorn[standard]>=0.32",
+    "voc-data",
+]
+
+[tool.uv.sources]
+voc-data = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

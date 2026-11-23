@@ -1,0 +1,18 @@
+Account: {{ account_name }}
+Rating: {{ rating }}{% if previous_rating %} (previous week: {{ previous_rating }}){% endif %}
+
+Rule that fired: {{ rule_text }}
+Products: {{ products | join(', ') }}
+
+Themes this period, most negative first:
+{% for theme in themes %}
+- {{ theme.name }}: {{ theme.negative_volume }} negative of {{ theme.volume }} records
+{% endfor %}
+
+<verbatim_data>
+{% for item in evidence %}
+[{{ item.id }}] {{ item.source }}, {{ item.date }}: {{ item.text }}
+{% endfor %}
+</verbatim_data>
+
+Write the friction explanation for this account and list the evidence IDs you used.

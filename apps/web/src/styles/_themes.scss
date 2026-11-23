@@ -1,0 +1,100 @@
+@use "variables" as *;
+
+// SCSS knobs -> shadcn/ui CSS variables.
+:root {
+  --background: #{$canvas};
+  --foreground: #{$ink};
+  --card: #{$surface};
+  --card-foreground: #{$ink};
+  --popover: #{$surface};
+  --popover-foreground: #{$ink};
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #{$sunk};
+  --secondary-foreground: #{$ink-2};
+  --muted: #{$sunk};
+  --muted-foreground: #{$ink-3};
+  --accent: #{$brand-weak};
+  --accent-foreground: #{$brand-ink};
+  --destructive: #{$rating-red};
+  --destructive-foreground: #ffffff;
+  --border: #{$line};
+  --input: #{$line};
+  --ring: #{$brand};
+  --radius: #{$radius};
+
+  --brand: #{$brand};
+  --link: #{$link};
+  --link-weak: #{$link-weak};
+  --rating-red: #{$rating-red};
+  --rating-red-weak: #{$rating-red-weak};
+  --rating-red-ink: #{$rating-red-ink};
+  --rating-yellow: #{$rating-yellow};
+  --rating-yellow-weak: #{$rating-yellow-weak};
+  --rating-yellow-ink: #{$rating-yellow-ink};
+  --rating-green: #{$rating-green};
+  --rating-green-weak: #{$rating-green-weak};
+  --rating-green-ink: #{$rating-green-ink};
+
+  --topbar-height: #{$topbar-height};
+  --content-max-width: #{$content-max-width};
+}
+
+// CSS variables -> Tailwind utilities such as bg-background, text-muted-foreground, bg-rating-red.
+@theme inline {
+  --font-sans: #{$font-family};
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-link: var(--link);
+  --color-link-weak: var(--link-weak);
+  --color-rating-red: var(--rating-red);
+  --color-rating-red-weak: var(--rating-red-weak);
+  --color-rating-red-ink: var(--rating-red-ink);
+  --color-rating-yellow: var(--rating-yellow);
+  --color-rating-yellow-weak: var(--rating-yellow-weak);
+  --color-rating-yellow-ink: var(--rating-yellow-ink);
+  --color-rating-green: var(--rating-green);
+  --color-rating-green-weak: var(--rating-green-weak);
+  --color-rating-green-ink: var(--rating-green-ink);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: #{$font-family};
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

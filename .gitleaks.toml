@@ -1,0 +1,16 @@
+# Seeded by 'harness init --install' (ADR 0025). This file is the team's: edit
+# it freely, and the harness will never overwrite it.
+title = "gitleaks configuration seeded by the harness"
+
+[extend]
+useDefault = true
+
+# The default rules miss a literal password in a JavaScript, JSON or YAML
+# configuration, which is how test and pipeline credentials are committed.
+[[rules]]
+id = "plaintext-config-password"
+description = "A literal password in a configuration file"
+regex = '''(?i)["']?(?:password|passwd|pwd|secondarypassword)["']?\s*[:=]\s*["']([^"'\s]{8,})["']'''
+secretGroup = 1
+path = '''(?i)\.(?:js|cjs|mjs|ts|json|ya?ml|config)$'''
+keywords = ["password", "passwd", "pwd"]

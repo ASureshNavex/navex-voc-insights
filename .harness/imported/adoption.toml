@@ -1,0 +1,4 @@
+# harness-managed: written by 'harness init --install', do not edit
+adopted_at = "2026-11-19"
+snapshot = "claude-code-2026-11-19"
+files = 8

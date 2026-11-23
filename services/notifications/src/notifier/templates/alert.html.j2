@@ -1,0 +1,20 @@
+<p><strong>{{ heading }}</strong></p>
+<table cellpadding="6" cellspacing="0" border="0">
+  <tr>
+    <th align="left">Account</th>
+    <th align="left">Change</th>
+    <th align="left">ARR</th>
+    <th align="left">Next renewal</th>
+    <th align="left">Themes</th>
+  </tr>
+  {% for change in changes %}
+  <tr>
+    <td><a href="{{ change.link }}">{{ change.name }}</a></td>
+    <td>{{ change.from_label }} to {{ change.to_label }}</td>
+    <td>{{ change.arr }}</td>
+    <td>{{ change.renewal or 'Not set' }}</td>
+    <td>{{ change.themes | join(', ') if change.themes else 'No themes this period' }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<p>You receive this because you own these accounts in VoC Insights.</p>

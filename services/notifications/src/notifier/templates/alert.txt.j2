@@ -1,0 +1,11 @@
+{{ heading }}
+
+{% for change in changes %}
+{{ change.name }}: {{ change.from_label }} to {{ change.to_label }}
+  ARR: {{ change.arr }}{% if change.renewal %}, next renewal {{ change.renewal }}{% endif %}
+
+  Themes: {{ change.themes | join(', ') if change.themes else 'No themes this period' }}
+  {{ change.link }}
+
+{% endfor %}
+You receive this because you own these accounts in VoC Insights.

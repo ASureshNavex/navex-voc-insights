@@ -1,0 +1,31 @@
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Editors and OS
+.idea/
+.DS_Store
+Thumbs.db
+
+# harness: installed by .harness/bootstrap.sh, never committed (spec section 4a)
+/.harness/bin/
+/.harness/bin/harness.exe
+/.harness/.bootstrap-tmp/
+/.harness/context/
+/.harness/accumulated/
+/.harness/scratchpad/
+/.harness/config.local.toml

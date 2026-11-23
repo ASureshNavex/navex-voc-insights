@@ -1,0 +1,28 @@
+manifest_version = 1
+version = "0.1.14"
+target = "x86_64-pc-windows-msvc"
+
+[[files]]
+path = "CONTEXT.md"
+sha256 = "75ebbcec9b51c10f5e0680d02ba3cb81b21296b5f329af281e52b0184827a323"
+bytes = 1904
+
+[[files]]
+path = "README.md"
+sha256 = "0df3f337d696e264f6f75d3c681eb4aa26b80fa48d5957ef729c15604f4a1ec5"
+bytes = 4654
+
+[[files]]
+path = "bin/harness.exe"
+sha256 = "43cc94b2793b39abc1f56bccb4241da2d0df1b8dccc95caaff651034d3e84596"
+bytes = 30919168
+
+[[files]]
+path = "config.toml"
+sha256 = "8931445ac85de085567339a7d435615b8b273c42db5cc277f687788f465c77e4"
+bytes = 5161
+
+[[files]]
+path = "playbooks/triage.md"
+sha256 = "3b834ad234b35b4b257c8748cb7999e6f6f614b554720bbd6f1ef32b3f96704b"
+bytes = 6759

@@ -1,0 +1,128 @@
+# The harness configuration for one repository, at .harness/config.toml.
+#
+# This file is the template that ships in the dist zip. `harness init` copies
+# it in and prefills what it can work out from the repository, so most of what
+# is below is either already correct or already filled in by the time a person
+# reads it.
+#
+# Secrets are never written here. A secret value is an indirection to an
+# environment variable:
+#
+#   api_key = "env:HARNESS_MMS_API_KEY"
+#
+# A literal is still accepted so a value can be tried quickly, but `harness
+# doctor` reports it as a finding rather than treating it as normal, and it
+# will fail a review. Supply the real values through the platform's secret
+# store and let this file name them.
+#
+# Every section may be omitted. Anything absent takes the default shown.
+
+[workspace]
+# single: one repository. multi: several, listed in members.
+mode = "single"
+
+# Repository folder names, for mode = "multi" only. Left empty in single mode.
+members = []
+
+# Members that other members build on. An impact scan fans out from these,
+# because a change here reaches further than the folder it sits in.
+shared_data_layer = []
+
+[mms]
+# Where the metric measurement service is. Empty means telemetry spools to disk
+# and is delivered when a url is configured, so an unset value loses nothing.
+url = ""
+
+# The key issued for this repository. Never a literal.
+api_key = "env:HARNESS_MMS_API_KEY"
+
+[auth]
+# Entra, when the deployment authenticates with client credentials rather than
+# an api key. Leave empty to use the api key above. All four stay empty
+# together: a secret named here while the other three are blank is read as a
+# credential this install needs, so doctor reports it missing for ever on a
+# deployment that authenticates with the api key and never wanted it. To use
+# Entra, fill in all four and set HARNESS_AUTH_CLIENT_SECRET.
+authority = ""
+client_id = ""
+client_secret = ""
+scope = ""
+
+[telemetry]
+# Off means nothing is recorded and nothing is sent. It does not mean recorded
+# and withheld.
+enabled = false
+
+# How long a delivery may take before it is spooled instead. The hook that
+# drives it must never delay a developer's turn, so this is deliberately short.
+timeout_ms = 3000
+
+# The spool is bounded. Oldest records are dropped first once it is full, so a
+# long outage costs the oldest deltas rather than the disk.
+spool_max_records = 10000
+
+# Extra redaction patterns, applied on the way out in addition to the built in
+# ones. Regular expressions. A pattern that does not compile is reported by
+# doctor and ignored, never applied half way.
+redact_patterns = []
+
+[jira]
+base_url = ""
+project_keys = []
+email = "env:HARNESS_JIRA_EMAIL"
+token = "env:HARNESS_JIRA_TOKEN"
+
+# The custom field id holding acceptance criteria. Empty discovers it from the
+# instance's own field catalogue by name, which is what most instances need.
+# Set it when a team names the field something the search does not recognise.
+acceptance_criteria_field = ""
+
+[vcs]
+# ado or github.
+provider = "github"
+organization = ""
+project = ""
+token = "env:HARNESS_VCS_TOKEN"
+
+[skills]
+# Vendored skills this repository does without, by folder name, for example
+# ["datascience-product-owner"] where nobody does that kind of work. Excluded
+# skills are not installed, and a re-install removes one an earlier install
+# wrote unless it was edited since. A name that matches no skill is reported.
+exclude = []
+
+[toolhost]
+# The agentic tool this repository is worked in: claude-code today, and what
+# decides where the settings, the commands and the memory file are written.
+# Configuration rather than detection, so a laptop and a build agent install
+# the same way. A host without session hooks records what was decided and
+# cannot price what it cost, and init and doctor both say so.
+provider = "claude-code"
+
+[models.claude-code]
+# The model each skill tier runs on. Every shipped skill declares a tier:
+# light for mechanical output its inputs fully determine, standard for work
+# grounded by a spec and acceptance criteria, deep for open judgement. Claude
+# Code applies the pin per skill. An alias follows its family forward.
+light = "haiku"
+standard = "sonnet"
+deep = "opus"
+
+[models.codex]
+# The same tiers in Codex's own model names, from its model list. Codex has no
+# per skill model, so a skill runs on the session's model and each turn records
+# the tier and the model it maps to here. Empty leaves a tier unmapped, and
+# doctor says so.
+light = "gpt-6-luna"
+standard = "gpt-6.1-sol"
+deep = "gpt-6-astra"
+
+[semble]
+# The embedding model 'harness context find-related' loads. Either a hub
+# repository id or a directory holding a downloaded model, resolved relative to
+# .harness when it is a path. Empty means the product default, which is what
+# init leaves set. An air gapped install points this at a local directory.
+model = ""
+# The most megabytes of saved search index kept, shared by every branch and
+# worktree of this checkout. The least recently used goes first.
+index_disk_mb = 512

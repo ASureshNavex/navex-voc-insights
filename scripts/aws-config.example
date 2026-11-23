@@ -1,0 +1,13 @@
+# Add to ~/.aws/config. Created for you by: aws configure sso --profile navexdev
+# Source: NAVEX AWS Single Sign-On guide (PDF, outside this repository)
+
+[sso-session navexsso]
+sso_start_url = https://navexglobal.awsapps.com/start
+sso_region = us-west-2
+sso_registration_scopes = sso:account:access
+
+[profile navexdev]
+sso_session = navexsso
+sso_account_id = <account id shown on the start page>
+sso_role_name = <role shown on the start page>
+region = us-west-2

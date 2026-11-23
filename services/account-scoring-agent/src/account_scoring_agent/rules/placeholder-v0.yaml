@@ -1,0 +1,6 @@
+# Placeholder rule set so the pipeline runs end to end. Replace with NAVEX's versioned rule set
+# (open item 9). The bands match the friction trend caption in the prototype:
+# red above 65, yellow 35 to 65, green below 35.
+version: placeholder-v0
+red_above: 65
+yellow_from: 35

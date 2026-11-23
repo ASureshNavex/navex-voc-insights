@@ -1,0 +1,65 @@
+[project]
+name = "navex-voc-platform"
+version = "0.1.0"
+description = "NAVEX VoC Insights Workspace: Python workspace root"
+requires-python = ">=3.13"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*", "services/*"]
+
+[dependency-groups]
+dev = [
+    "aiosqlite>=0.20",
+    "cryptography>=43",
+    "mypy>=1.13",
+    "pip-audit>=2.7",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+    "types-boto3[s3,ses]>=1.35",
+    "types-pyyaml>=6.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["packages/voc-data/alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "ASYNC", "SIM", "RUF"]
+ignore = ["S101"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "tests", "account_scoring_agent", "ingestion", "notifier"]
+known-third-party = ["voc_data"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S105", "S106"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+plugins = ["pydantic.mypy"]
+files = [
+    "packages/voc-data/src",
+    "services/experience-api/app",
+    "services/ingestion/src",
+    "services/account-scoring-agent/src",
+    "services/notifications/src",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "--import-mode=importlib -q"
+testpaths = [
+    "packages/voc-data/tests",
+    "services/experience-api/tests",
+    "services/ingestion/tests",
+    "services/account-scoring-agent/tests",
+    "services/notifications/tests",
+]
